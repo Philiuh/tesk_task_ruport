@@ -2,7 +2,7 @@
   @include tx-layer(content);
   position: relative;
   width: 100%;
-  background-color: #0e4447;
+  background-color: $green-1100;
 }
 
 .footer-container {
@@ -15,10 +15,7 @@
 }
 
 .footer-text {
+  @include tx-font-size(14px, 17px);
   font-family: Actor;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 17px;
-  color: #fff;
+  color: $white;
 }

@@ -1,6 +1,6 @@
 module.exports = (grunt) => {
   grunt.registerTask('quality', [
-    'newer:htmlhint',
+    // 'newer:htmlhint',
     'newer:stylelint',
     'newer:colorguard',
     'newer:eslint',

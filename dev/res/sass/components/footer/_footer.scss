@@ -2,20 +2,20 @@
   @include tx-layer(content);
   position: relative;
   width: 100%;
-  background-color: $green-1100;
+  background-color: $green-1200;
 }
 
 .footer-container {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  max-width: 940px;
   height: 40px;
   margin: 0 auto;
-  max-width: 940px;
 }
 
 .footer-text {
   @include tx-font-size(14px, 17px);
-  font-family: Actor;
   color: $white;
+  font-family: Actor, sans-serif;
 }

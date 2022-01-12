@@ -2,22 +2,22 @@
   @include tx-layer(content);
   position: relative;
   width: 100%;
-  background-color: $green-1100;
+  background-color: $green-1200;
 }
 
 .header-container {
   display: flex;
   flex-direction: row;
   align-items: center;
+  max-width: 940px;
   height: 60px;
   margin: 0 auto;
-  max-width: 940px;
 }
 
 .header-text {
   @include tx-font-size(24px, 33px);
-  font-family: Adamina;
-  font-weight: 400;
   margin-left: 12px;
   color: $white;
+  font-weight: 400;
+  font-family: Adamina, sans-serif;
 }

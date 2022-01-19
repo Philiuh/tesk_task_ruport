@@ -1,5 +1,4 @@
 .footer {
-  @include tx-layer(content);
   position: relative;
   width: 100%;
   background-color: $green-1200;
@@ -9,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 940px;
+  max-width: $contentWidthDesktop;
   height: 40px;
   margin: 0 auto;
 }
@@ -17,5 +16,5 @@
 .footer-text {
   @include tx-font-size(14px, 17px);
   color: $white;
-  font-family: Actor, sans-serif;
+  font-family: $font-sans;
 }

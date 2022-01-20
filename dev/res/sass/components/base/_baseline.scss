@@ -8,8 +8,10 @@ html {
 
 body {
   @include tx-hyphens;
+  margin: 0;
   color: $text;
   font-family: $fontFamily;
+  background-color: $gray-200;
   font-feature-settings: 'liga' 1, 'clig' 1, 'kern' 1;
   font-display: swap;
 }

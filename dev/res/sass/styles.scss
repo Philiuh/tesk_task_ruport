@@ -13,7 +13,11 @@
 
 // Utilities
 
-@import 'utilities/_utilities';
+@import 'utilities/_utilities'; 
+
+// Patterns
+
+@import 'patterns/_custom-layer';
 
 // Components
 
@@ -24,7 +28,7 @@
 @import '_sprites';
 
 @import 'header/header';
-@import 'page/page';
 @import 'footer/footer';
+
 // @import 'cardList/cardList';
 // @import 'card/card';

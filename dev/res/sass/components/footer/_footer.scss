@@ -1,20 +1,14 @@
 .footer {
+  @include custom-container-width;
   position: relative;
-  width: 100%;
-  background-color: $green-1200;
-}
-
-.footer-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: $contentWidthDesktop;
   height: 40px;
-  margin: 0 auto;
+  background-color: $green-1200;
 }
 
 .footer-text {
   @include tx-font-size(14px, 17px);
   color: $white;
-  font-family: $font-sans;
 }

@@ -7,9 +7,7 @@ html {
 }
 
 body {
-  @include tx-boundaries;
   position: relative;
-  padding: 0 $gap;
   background: $background;
 }
 

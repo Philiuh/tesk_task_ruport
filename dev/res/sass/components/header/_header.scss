@@ -1,0 +1,17 @@
+.header {
+  @include custom-container-width;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 60px;
+  background-color: $green-1200;
+}
+
+.header-text {
+  @include tx-font-size(24px, 33px);
+  margin-left: 12px;
+  color: $white;
+  font-weight: 400;
+  font-family: $font-serif;
+}

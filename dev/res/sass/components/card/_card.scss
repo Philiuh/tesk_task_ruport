@@ -1,0 +1,69 @@
+.card-data {
+  width: 220px;
+  background-color: $white;
+  border-radius: 6px;
+}
+
+//Селектор, созданный только для того, чтобы на адаптиве выравнивать элементы в гридах по центру.
+//Другого способа, который позволит избавится от лишнего тэга, пока не нашел :с
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-img {
+  width: fill-available;
+  width: -webkit-fill-available;
+  width: -moz-fill-available;
+  max-height: 146px;
+  object-fit: cover;
+  border-radius: 6px 6px 0 0;
+}
+
+.card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.card-name {
+  @include tx-font-size(18px);
+  margin: 0 0 10px;
+  color: $black;
+  font-weight: 400;
+}
+
+.card-info {
+  @include tx-font-size(14px, 9.5px);
+  margin: 0;
+  color: $gray-700;
+  font-weight: 400;
+}
+
+.card-button-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 20px 20px;
+}
+
+.card-button {
+  @include tx-font-size(14px);
+  width: 100%;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.accept {
+  margin-bottom: 10px;
+  color: $green-1100;
+  background-color: $green-900;
+}
+
+.reject {
+  color: $white;
+  background-color: $green-1100;
+}

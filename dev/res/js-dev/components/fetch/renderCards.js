@@ -1,11 +1,10 @@
-const url = 'https://private-9d5e37a-testassignment.apiary-mock.com/get-bears';
-
 const renderCards = async () => {
-  const arr = await fetch(url)
+  const url = document.querySelector('.js-fetch-cards').dataset.fetchUrl;
+  const rawArticleList = await fetch(url)
     .then((response) => response.json())
     .then((commits) => commits.results.data);
 
-  const articleList = arr.reduce((articles, article) => {
+  const articleList = rawArticleList.reduce((articles, article) => {
     return `${articles}
     <article class="card">
       <div class="card-data">
@@ -24,7 +23,7 @@ const renderCards = async () => {
     `;
   }, []);
 
-  const cards = document.querySelector('.cards');
+  const cards = document.querySelector('.js-fetch-cards');
   cards.insertAdjacentHTML('afterbegin', articleList);
 };
 

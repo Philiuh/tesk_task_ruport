@@ -6,6 +6,7 @@
   align-items: center;
   height: 60px;
   background-color: $green-1200;
+
   @media (max-width: 960px) {
     @include custom-container-width($contentWidthDesktopMin);
   }

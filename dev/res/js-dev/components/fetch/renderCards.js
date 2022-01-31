@@ -1,37 +1,47 @@
 let cards;
+let url;
 
 const shouldRun = () => document.querySelector('.js-fetch-cards');
 
 const findElements = () => {
   cards = document.querySelector('.js-fetch-cards');
+  url = cards.dataset.fetchUrl;
 };
 
 const renderCards = (cardsData) => {
   const articleList = cardsData.reduce((articles, article) => {
     return `${articles}
-    <article class="card">
+    <article class="card ${article.in_reserve ? 'reserved' : 'unreserved'}" >
+      ${
+        article.in_reserve
+          ? '<div class="reserved-img"><p class="reserved-announcement">В заповеднике</p></div>'
+          : ''
+      }
       <img class="card-img" src="${article.image_url}" />
-      <div class="card-inner">
-        <h1 class="card-name">${article.name}</h1>
-        <h2 class="card-info">${article.type}</h2>
-        <h2 class="card-info">${article.gender}</h2>
-      </div>
+        <h2 class="card-name ${article.in_reserve ? 'reserved-text' : ''}">${
+      article.name
+    }</h2>
+        <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
+      article.type
+    }</p>
+        <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
+      article.gender
+    }</p>
       <div class="card-button-list">
         <button class="card-button accept">Принять</button>
-        <button class="card-button reject">Отклонить</button>
+        <button class="card-button reject ${
+          article.in_reserve ? 'reserved-button' : ''
+        }">Отклонить</button>
       </div>
-    </article>
-    `;
+    </article>`;
   }, []);
   cards.insertAdjacentHTML('afterbegin', articleList);
 };
 
 const fetchCards = async () => {
-  const url = cards.dataset.fetchUrl;
-  const cardsData = await fetch(url)
+  return fetch(url)
     .then((response) => response.json())
     .then((json) => json.results.data);
-  renderCards(cardsData);
 };
 
 export default () => {
@@ -39,5 +49,5 @@ export default () => {
     return;
   }
   findElements();
-  fetchCards();
+  fetchCards().then(renderCards);
 };

@@ -1,6 +1,5 @@
 .cards {
-  @include custom-container-width($contentWidthDesktopMax);
-  position: relative;
+  @include container-width-media;
   display: grid;
   grid-row-gap: 20px;
   grid-column-gap: 20px;
@@ -8,15 +7,12 @@
   margin: 40px 0 90px;
 
   @media (max-width: 960px) {
-    @include custom-container-width($contentWidthDesktopMin);
     grid-template-columns: repeat(3, 1fr);
   }
   @media (max-width: 720px) {
-    @include custom-container-width($contentWidthTablet);
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 450px) {
-    @include custom-container-width($contentWidthMobile);
     grid-template-columns: repeat(1, 1fr);
   }
 }

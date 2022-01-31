@@ -1,21 +1,16 @@
 .header {
-  @include custom-container-width(($contentWidthDesktopMax));
-  position: relative;
+  @include container-width-media;
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 60px;
   background-color: $green-1200;
+}
 
-  @media (max-width: 960px) {
-    @include custom-container-width($contentWidthDesktopMin);
-  }
-  @media (max-width: 720px) {
-    @include custom-container-width($contentWidthTablet);
-  }
-  @media (max-width: 450px) {
-    @include custom-container-width($contentWidthMobile);
-  }
+.header-icon {
+  background-image: url("/icons/_site-logo.svg");
+  height: 33px;
+  width: 58px;
 }
 
 .header-text {

@@ -1,5 +1,5 @@
 .footer {
-  @include custom-container-width;
+  @include custom-container-width(($contentWidthDesktopMax));
   position: relative;
   display: flex;
   align-items: center;

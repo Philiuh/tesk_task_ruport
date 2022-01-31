@@ -1,30 +1,43 @@
-const renderCards = async () => {
-  const url = document.querySelector('.js-fetch-cards').dataset.fetchUrl;
-  const rawArticleList = await fetch(url)
-    .then((response) => response.json())
-    .then((commits) => commits.results.data);
+let cards;
 
-  const articleList = rawArticleList.reduce((articles, article) => {
+const shouldRun = () => document.querySelector('.js-fetch-cards');
+
+const findElements = () => {
+  cards = document.querySelector('.js-fetch-cards');
+};
+
+const renderCards = (cardsData) => {
+  const articleList = cardsData.reduce((articles, article) => {
     return `${articles}
     <article class="card">
-      <div class="card-data">
-        <img class="card-img" src="${article.image_url}" />
-        <div class="card-inner">
-          <h1 class="card-name">${article.name}</h1>
-          <h2 class="card-info">${article.type}</h2>
-          <h2 class="card-info">${article.gender}</h2>
-        </div>
-        <div class="card-button-list">
-          <button class="card-button accept">Принять</button>
-          <button class="card-button reject">Отклонить</button>
-        </div>
+      <img class="card-img" src="${article.image_url}" />
+      <div class="card-inner">
+        <h1 class="card-name">${article.name}</h1>
+        <h2 class="card-info">${article.type}</h2>
+        <h2 class="card-info">${article.gender}</h2>
+      </div>
+      <div class="card-button-list">
+        <button class="card-button accept">Принять</button>
+        <button class="card-button reject">Отклонить</button>
       </div>
     </article>
     `;
   }, []);
-
-  const cards = document.querySelector('.js-fetch-cards');
   cards.insertAdjacentHTML('afterbegin', articleList);
 };
 
-export default renderCards;
+const fetchCards = async () => {
+  const url = cards.dataset.fetchUrl;
+  const cardsData = await fetch(url)
+    .then((response) => response.json())
+    .then((json) => json.results.data);
+  renderCards(cardsData);
+};
+
+export default () => {
+  if (!shouldRun()) {
+    return;
+  }
+  findElements();
+  fetchCards();
+};

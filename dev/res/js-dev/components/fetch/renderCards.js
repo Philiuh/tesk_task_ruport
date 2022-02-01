@@ -1,9 +1,11 @@
 let cards;
+let url;
 
 const shouldRun = () => document.querySelector('.js-fetch-cards');
 
 const findElements = () => {
   cards = document.querySelector('.js-fetch-cards');
+  url = cards.dataset.fetchUrl;
 };
 
 const renderCards = (cardsData) => {
@@ -11,11 +13,9 @@ const renderCards = (cardsData) => {
     return `${articles}
     <article class="card">
       <img class="card-img" src="${article.image_url}" />
-      <div class="card-inner">
-        <h1 class="card-name">${article.name}</h1>
-        <h2 class="card-info">${article.type}</h2>
-        <h2 class="card-info">${article.gender}</h2>
-      </div>
+      <h2 class="card-name">${article.name}</h2>
+      <p class="card-info">${article.type}</p>
+      <p class="card-info">${article.gender}</p>
       <div class="card-button-list">
         <button class="card-button accept">Принять</button>
         <button class="card-button reject">Отклонить</button>
@@ -27,11 +27,9 @@ const renderCards = (cardsData) => {
 };
 
 const fetchCards = async () => {
-  const url = cards.dataset.fetchUrl;
-  const cardsData = await fetch(url)
+  return fetch(url)
     .then((response) => response.json())
     .then((json) => json.results.data);
-  renderCards(cardsData);
 };
 
 export default () => {
@@ -39,5 +37,5 @@ export default () => {
     return;
   }
   findElements();
-  fetchCards();
+  fetchCards().then((response) => renderCards(response));
 };

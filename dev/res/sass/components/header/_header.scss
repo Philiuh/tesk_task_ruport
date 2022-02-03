@@ -1,27 +1,15 @@
 .header {
-  @include custom-container-width(($contentWidthDesktopMax));
-  position: relative;
+  @include container-width-media;
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 60px;
   background-color: $green-1200;
-
-  @media (max-width: 960px) {
-    @include custom-container-width($contentWidthDesktopMin);
-  }
-  @media (max-width: 720px) {
-    @include custom-container-width($contentWidthTablet);
-  }
-  @media (max-width: 450px) {
-    @include custom-container-width($contentWidthMobile);
-  }
 }
 
 .header-text {
   @include tx-font-size(24px, 33px);
   margin-left: 12px;
   color: $white;
-  font-weight: 400;
   font-family: $font-serif;
 }

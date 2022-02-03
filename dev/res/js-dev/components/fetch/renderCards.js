@@ -37,5 +37,5 @@ export default () => {
     return;
   }
   findElements();
-  fetchCards().then((response) => renderCards(response));
+  fetchCards().then(renderCards);
 };

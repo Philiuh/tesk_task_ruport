@@ -1,3 +1,17 @@
-@mixin custom-container-width {
-  padding: 0 calc(50% - (#{$contentWidthDesktop} / 2));
+@mixin container-width($contentWidth) {
+  padding: 0 calc(50% - (#{$contentWidth} / 2));
+}
+
+@mixin container-width-media {
+  @include container-width($contentWidthDesktopMax);
+
+  @media (max-width: 960px) {
+    @include container-width($contentWidthDesktopMin);
+  }
+  @media (max-width: 720px) {
+    @include container-width($contentWidthTablet);
+  }
+  @media (max-width: 450px) {
+    @include container-width($contentWidthMobile);
+  }
 }

@@ -1,6 +1,5 @@
 .header {
-  @include custom-container-width;
-  position: relative;
+  @include container-width-media;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,6 +11,5 @@
   @include tx-font-size(24px, 33px);
   margin-left: 12px;
   color: $white;
-  font-weight: 400;
   font-family: $font-serif;
 }

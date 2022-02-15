@@ -3,7 +3,8 @@
   "version": "0.0.3",
   "private": true,
   "dependencies": {
-    "regenerator-runtime": "^0.13.7"
+    "regenerator-runtime": "^0.13.7",
+    "stylelint-config-sass-guidelines": "^9.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",

@@ -44,7 +44,7 @@ const fetchCards = async () => {
     .then((json) => json.results.data);
 };
 
-export default () => {
+export default async () => {
   if (!shouldRun()) {
     return;
   }

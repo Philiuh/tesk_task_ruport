@@ -1,7 +1,6 @@
 import polyfills from 'polyfills/polyfills';
-import renderCards from './components/fetch/renderCards';
-import filterCards from './components/filter/filterCards';
+import renderCards from 'fetch/renderCards';
+import filterCards from 'filter/filterCards';
 
 polyfills();
-renderCards();
-filterCards();
+renderCards().then(filterCards);

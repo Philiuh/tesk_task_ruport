@@ -4,6 +4,7 @@ let button;
 const shouldRun = () => document.querySelector('.menu-checkbox');
 
 const findElements = () => {
+  button = document.querySelector('.menu-checkbox');
   unreservedCards = document.querySelectorAll('.unreserved');
 };
 
@@ -11,17 +12,18 @@ export default () => {
   if (!shouldRun()) {
     return;
   }
-  button = document.querySelector('.menu-checkbox');
+  findElements();
   button.addEventListener('change', function filterCards() {
-    findElements();
     if (this.checked) {
-      for (let i = 0; i < unreservedCards.length; i += 1) {
-        unreservedCards[i].style.display = 'none';
-      }
+      unreservedCards.forEach((unreservedCard) => {
+        // eslint-disable-next-line no-param-reassign
+        unreservedCard.style.display = 'none';
+      });
     } else {
-      for (let i = 0; i < unreservedCards.length; i += 1) {
-        unreservedCards[i].style.display = 'flex';
-      }
+      unreservedCards.forEach((unreservedCard) => {
+        // eslint-disable-next-line no-param-reassign
+        unreservedCard.style.display = 'flex';
+      });
     }
   });
 };

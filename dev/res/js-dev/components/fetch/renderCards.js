@@ -8,34 +8,39 @@ const findElements = () => {
   url = cards.dataset.fetchUrl;
 };
 
+const createCards = (articles, article) => {
+  return `${articles}
+  <article class="card ${article.in_reserve ? 'reserved' : 'unreserved'}" >
+    ${
+      article.in_reserve
+        ? '<div class="reserved-img"><p class="reserved-announcement">В заповеднике</p></div>'
+        : ''
+    }
+    <img class="card-img" src="${article.image_url}" />
+      <h2 class="card-name ${article.in_reserve ? 'reserved-text' : ''}">${
+    article.name
+  }</h2>
+      <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
+    article.type
+  }</p>
+      <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
+    article.gender
+  }</p>
+    <div class="card-button-list">
+      <button class="card-button accept">Принять</button>
+      <button class="card-button reject ${
+        article.in_reserve ? 'reserved-button' : ''
+      }">Отклонить</button>
+    </div>
+  </article>`;
+};
+
 const renderCards = (cardsData) => {
-  const articleList = cardsData.reduce((articles, article) => {
-    return `${articles}
-    <article class="card ${article.in_reserve ? 'reserved' : 'unreserved'}" >
-      ${
-        article.in_reserve
-          ? '<div class="reserved-img"><p class="reserved-announcement">В заповеднике</p></div>'
-          : ''
-      }
-      <img class="card-img" src="${article.image_url}" />
-        <h2 class="card-name ${article.in_reserve ? 'reserved-text' : ''}">${
-      article.name
-    }</h2>
-        <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
-      article.type
-    }</p>
-        <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
-      article.gender
-    }</p>
-      <div class="card-button-list">
-        <button class="card-button accept">Принять</button>
-        <button class="card-button reject ${
-          article.in_reserve ? 'reserved-button' : ''
-        }">Отклонить</button>
-      </div>
-    </article>`;
-  }, []);
-  cards.insertAdjacentHTML('afterbegin', articleList);
+  return new Promise((resolve) => {
+    const articleList = cardsData.reduce(createCards, []);
+    cards.insertAdjacentHTML('afterbegin', articleList);
+    resolve();
+  });
 };
 
 const fetchCards = async () => {
@@ -46,8 +51,8 @@ const fetchCards = async () => {
 
 export default async () => {
   if (!shouldRun()) {
-    return;
+    return Promise.reject();
   }
   findElements();
-  fetchCards().then(renderCards);
+  return fetchCards().then(renderCards);
 };

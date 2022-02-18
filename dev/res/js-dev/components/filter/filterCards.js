@@ -8,22 +8,36 @@ const findElements = () => {
   unreservedCards = document.querySelectorAll('.unreserved');
 };
 
+const hideCards = () => {
+  unreservedCards.forEach((unreservedCard) => {
+    const changedUnreservedCard = unreservedCard;
+    changedUnreservedCard.style.display = 'none';
+  });
+};
+
+const showCards = () => {
+  unreservedCards.forEach((unreservedCard) => {
+    const changedUnreservedCard = unreservedCard;
+    changedUnreservedCard.style.display = 'flex';
+  });
+};
+
+const onChange = () => {
+  if (button.checked) {
+    hideCards();
+  } else {
+    showCards();
+  }
+};
+
+const subscribeFilter = () => {
+  button.addEventListener('change', onChange);
+};
+
 export default () => {
   if (!shouldRun()) {
     return;
   }
   findElements();
-  button.addEventListener('change', function filterCards() {
-    if (this.checked) {
-      unreservedCards.forEach((unreservedCard) => {
-        // eslint-disable-next-line no-param-reassign
-        unreservedCard.style.display = 'none';
-      });
-    } else {
-      unreservedCards.forEach((unreservedCard) => {
-        // eslint-disable-next-line no-param-reassign
-        unreservedCard.style.display = 'flex';
-      });
-    }
-  });
+  subscribeFilter();
 };

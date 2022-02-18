@@ -11,7 +11,6 @@
 
 .menu-text {
   @include tx-font-size(24px, 29px);
-
   width: 50%;
   margin: 0;
 
@@ -49,11 +48,11 @@
 }
 
 .menu-checkbox + label::before {
+  @include tx-pseudo(relative);
   min-width: 20px;
   min-height: 20px;
   background: $gray-150;
   border-radius: 6px;
-  content: '';
 }
 
 .menu-checkbox:checked + label::before {

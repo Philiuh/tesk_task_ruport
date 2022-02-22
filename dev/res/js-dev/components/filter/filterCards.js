@@ -1,10 +1,10 @@
 let unreservedCards;
-let button;
+let checkbox;
 
 const shouldRun = () => document.querySelector('.menu-checkbox');
 
 const findElements = () => {
-  button = document.querySelector('.menu-checkbox');
+  checkbox = document.querySelector('.menu-checkbox');
   unreservedCards = document.querySelectorAll('.unreserved');
 };
 
@@ -23,7 +23,7 @@ const showCards = () => {
 };
 
 const onChange = () => {
-  if (button.checked) {
+  if (checkbox.checked) {
     hideCards();
   } else {
     showCards();
@@ -31,7 +31,7 @@ const onChange = () => {
 };
 
 const subscribeFilter = () => {
-  button.addEventListener('change', onChange);
+  checkbox.addEventListener('change', onChange);
 };
 
 export default () => {

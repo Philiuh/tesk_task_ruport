@@ -7,6 +7,12 @@
   background-color: $green-1200;
 }
 
+.header-icon {
+  width: 58px;
+  height: 33px;
+  background-image: url('/icons/_site-logo.svg');
+}
+
 .header-text {
   @include tx-font-size(24px, 33px);
   margin-left: 12px;

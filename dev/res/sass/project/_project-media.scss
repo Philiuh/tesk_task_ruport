@@ -1,9 +1,9 @@
 // Media Queries
 
 $breakpoints: (
-  phoneMax: 767px,
-  desktopMin: 1199px,
-  desktopWide: 1735px,
+  phoneMin: 450px,
+  tabletMin: 720px,
+  desktopMinimal: 960px,
   desktopMax: 1920px,
 );
 
@@ -21,9 +21,9 @@ $orientation: false|portrait|landscape - screen orientation
 */
 
 $breakpointQueries: (
-  wide:
+  desktopMin:
     txf-breakpointQuery(
-      $min: desktopWide,
+      $max: desktopMinimal,
     ),
   hdpi:
     txf-breakpointQuery(
@@ -35,30 +35,30 @@ $breakpointQueries: (
     ),
   tablet:
     txf-breakpointQuery(
-      $max: desktopMin,
+      $max: tabletMin,
     ),
   tablet2x:
     txf-breakpointQuery(
-      $max: desktopMin,
+      $max: tabletMin,
       $dpi: hdpi,
     ),
   tablet3x:
     txf-breakpointQuery(
-      $max: desktopMin,
+      $max: tabletMin,
       $dpi: xhdpi,
     ),
   phone:
     txf-breakpointQuery(
-      $max: phoneMax,
+      $max: phoneMin,
     ),
   phone2x:
     txf-breakpointQuery(
-      $max: phoneMax,
+      $max: phoneMin,
       $dpi: hdpi,
     ),
   phone3x:
     txf-breakpointQuery(
-      $max: phoneMax,
+      $max: phoneMin,
       $dpi: xhdpi,
     ),
 );
@@ -72,7 +72,7 @@ $mediaQueries: (
   tablet: txf-deviceBreakpoint(tablet),
   tablet2x: txf-deviceBreakpoint(tablet2x),
   tablet3x: txf-deviceBreakpoint(tablet3x),
-  wide: txf-deviceBreakpoint(wide),
+  desktopMin: txf-deviceBreakpoint(desktopMin),
   watch: '(max-device-width: 42mm) and (min-device-width: 38mm)',
   print: 'print',
   speech: 'speech',

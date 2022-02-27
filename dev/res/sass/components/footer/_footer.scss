@@ -1,8 +1,10 @@
 .footer {
+  @include container-width($contentWidthDesktopMax);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 40px;
+  margin-top: auto;
   background-color: $green-1200;
 }
 

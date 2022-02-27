@@ -6,13 +6,13 @@
   grid-template-columns: repeat(4, 1fr);
   margin: 40px 0 90px;
 
-  @media (max-width: 960px) {
+  @include tx-media(desktopMin) {
     grid-template-columns: repeat(3, 1fr);
   }
-  @media (max-width: 720px) {
+  @include tx-media(tablet) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 450px) {
+  @include tx-media(phone) {
     grid-template-columns: repeat(1, 1fr);
   }
 }

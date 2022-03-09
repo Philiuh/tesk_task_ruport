@@ -4,4 +4,7 @@ import filterCards from 'filter/filterCards';
 import renderModal from 'modal/renderModal';
 
 polyfills();
-renderCards().then(filterCards).then(renderModal);
+renderCards().then(() => {
+  filterCards();
+  renderModal();
+});

@@ -25,12 +25,12 @@
 
 .reserved-announcement--modal {
   @include tx-font-size(24px);
-  @include container-width(400px);
+  @include container-width($modalContainerWidth);
   margin: 20px 0 0;
   text-align: left;
 
   @include tx-media(phone) {
-    @include container-width(260px);
+    @include container-width($modalContainerWidthMobile);
   }
 }
 

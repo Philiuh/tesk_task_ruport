@@ -23,6 +23,17 @@
   text-align: center;
 }
 
+.reserved-announcement--modal {
+  @include tx-font-size(24px);
+  @include container-width(400px);
+  margin: 20px 0 0;
+  text-align: left;
+
+  @include tx-media(phone) {
+    @include container-width(260px);
+  }
+}
+
 .reserved-text {
   color: $white;
 }

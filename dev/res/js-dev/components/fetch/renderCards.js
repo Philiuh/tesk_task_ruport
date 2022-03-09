@@ -5,12 +5,13 @@ const shouldRun = () => document.querySelector('.js-fetch-cards');
 
 const findElements = () => {
   cards = document.querySelector('.js-fetch-cards');
-  url = cards.dataset.fetchUrl;
+  url = cards.dataset.fetchAllUrl;
 };
 
 const createCards = (articles, article) => {
   return `${articles}
-  <article class="card ${article.in_reserve ? 'reserved' : 'unreserved'}" >
+  <article id='${article.id}' 
+  class="card ${article.in_reserve ? 'reserved' : 'unreserved'}" >
     ${
       article.in_reserve
         ? '<div class="reserved-img"><p class="reserved-announcement">В заповеднике</p></div>'

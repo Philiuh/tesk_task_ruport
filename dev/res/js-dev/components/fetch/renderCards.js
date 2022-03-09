@@ -10,7 +10,7 @@ const findElements = () => {
 
 const createCards = (articles, article) => {
   return `${articles}
-  <article id='${article.id}' 
+  <article id='${article.id}'
   class="card ${article.in_reserve ? 'reserved' : 'unreserved'}" >
     ${
       article.in_reserve

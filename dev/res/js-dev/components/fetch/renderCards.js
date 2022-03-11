@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 let cards;
 let url;
 
@@ -8,29 +9,26 @@ const findElements = () => {
   url = cards.dataset.fetchAllUrl;
 };
 
-const createCards = (articles, article) => {
+const createCards = (
+  articles,
+  { id, in_reserve, name, image_url, type, gender }
+) => {
   return `${articles}
-  <article id='${article.id}'
-  class="card ${article.in_reserve ? 'reserved' : 'unreserved'}" >
+  <article id='${id}'
+  class="card ${in_reserve ? 'reserved' : 'unreserved'}" >
     ${
-      article.in_reserve
+      in_reserve
         ? '<div class="reserved-img"><p class="reserved-announcement">В заповеднике</p></div>'
         : ''
     }
-    <img class="card-img" src="${article.image_url}" />
-      <h2 class="card-name ${article.in_reserve ? 'reserved-text' : ''}">${
-    article.name
-  }</h2>
-      <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
-    article.type
-  }</p>
-      <p class="card-info ${article.in_reserve ? 'reserved-text' : ''}">${
-    article.gender
-  }</p>
+    <img class="card-img" src="${image_url}" />
+      <h2 class="card-name ${in_reserve ? 'reserved-text' : ''}">${name}</h2>
+      <p class="card-info ${in_reserve ? 'reserved-text' : ''}">${type}</p>
+      <p class="card-info ${in_reserve ? 'reserved-text' : ''}">${gender}</p>
     <div class="card-button-list">
       <button class="card-button accept">Принять</button>
       <button class="card-button reject ${
-        article.in_reserve ? 'reserved-button' : ''
+        in_reserve ? 'reserved-button' : ''
       }">Отклонить</button>
     </div>
   </article>`;

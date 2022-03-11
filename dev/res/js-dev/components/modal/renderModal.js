@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 let cardList;
 let url;
 let modalCard;
@@ -18,33 +19,33 @@ const fetchCard = async (id) =>
     .then((response) => response.json())
     .then((json) => json.data);
 
-const createModal = (cardData) => {
+const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   return `
   <div class="modal">
-    <div class="card ${cardData.in_reserve ? 'reserved' : ''} card--modal">
+    <div class="card ${in_reserve ? 'reserved' : ''} card--modal">
       <button class="close-button--modal"></button>
       ${
-        cardData.in_reserve
+        in_reserve
           ? '<div class="reserved-img"><p class="reserved-announcement reserved-announcement--modal">В заповеднике</p></div>'
           : ''
       }
-      <img src="${cardData.image_url}" class="card-img--modal">
+      <img src="${image_url}" class="card-img--modal">
       <h2 class="card-name ${
-        cardData.in_reserve ? 'reserved-text' : ''
-      } card-name--modal">${cardData.name}</h2>
+        in_reserve ? 'reserved-text' : ''
+      } card-name--modal">${name}</h2>
       <p class="card-info ${
-        cardData.in_reserve ? 'reserved-text' : ''
-      } card-info--modal">${cardData.type}</p>
+        in_reserve ? 'reserved-text' : ''
+      } card-info--modal">${type}</p>
       <p class="card-info ${
-        cardData.in_reserve ? 'reserved-text' : ''
-      } card-info--modal">${cardData.gender}</p>
+        in_reserve ? 'reserved-text' : ''
+      } card-info--modal">${gender}</p>
       <p class="card-info ${
-        cardData.in_reserve ? 'reserved-text' : ''
-      } card-text--modal">${cardData.text}</p>
+        in_reserve ? 'reserved-text' : ''
+      } card-text--modal">${text}</p>
       <div class="card-button-list--modal">
           <button class="card-button accept card-button--modal">Принять</button>
           <button class="card-button reject ${
-            cardData.in_reserve ? 'reserved-button' : ''
+            in_reserve ? 'reserved-button' : ''
           } card-button--modal">Отклонить</button>
       </div>
     </div>
@@ -61,6 +62,7 @@ const sunscribeCloseButton = () =>
   modalCard.addEventListener('click', closeButtonOnClick);
 
 const renderModal = (cardData) => {
+  console.log(cardData);
   const rawModalCard = createModal(cardData);
   cardList.insertAdjacentHTML('afterend', rawModalCard);
   findModalCard();
@@ -69,13 +71,9 @@ const renderModal = (cardData) => {
 
 // в кэтче ловлю тут ошибку Uncaught (in promise) SyntaxError: Unexpected token < in JSON at position 0
 // мне ее надо обрабатывать?
-const modalOnClick = (eventData) => {
-  if (
-    eventData.target.tagName === 'BUTTON' ||
-    eventData.target.classList.contains('cards')
-  )
-    return;
-  const card = eventData.path.find((cardArticle) => cardArticle.id);
+const modalOnClick = ({ target, path }) => {
+  if (target.tagName === 'BUTTON' || target.classList.contains('cards')) return;
+  const card = path.find((cardArticle) => cardArticle.id);
   fetchCard(card.id).then(renderModal).catch();
 };
 

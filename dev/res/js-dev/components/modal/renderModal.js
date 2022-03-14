@@ -52,7 +52,6 @@ const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   </div>`;
 };
 
-// норм ли засовывать document.body в переменную, или лучше обойтись без переменной?
 const closeButtonOnClick = (eventData) => {
   if (eventData.target.classList.contains('close-button--modal')) {
     document.body.removeChild(modalCard);
@@ -61,20 +60,24 @@ const closeButtonOnClick = (eventData) => {
 const sunscribeCloseButton = () =>
   modalCard.addEventListener('click', closeButtonOnClick);
 
-const renderModal = (cardData) => {
-  console.log(cardData);
-  const rawModalCard = createModal(cardData);
+const renderModal = (cardData, error) => {
+  const rawModalCard = createModal(cardData, error);
   cardList.insertAdjacentHTML('afterend', rawModalCard);
   findModalCard();
   sunscribeCloseButton();
 };
 
-// в кэтче ловлю тут ошибку Uncaught (in promise) SyntaxError: Unexpected token < in JSON at position 0
-// мне ее надо обрабатывать?
+// решил сделать просто вывод ошибки через алерт,
+// тк не придумал, как можно еще выводить ошибку,
+// чтоб не выглядело ебано
+const errorHandler = (error) => {
+  alert(error);
+};
+
 const modalOnClick = ({ target, path }) => {
   if (target.tagName === 'BUTTON' || target.classList.contains('cards')) return;
   const card = path.find((cardArticle) => cardArticle.id);
-  fetchCard(card.id).then(renderModal).catch();
+  fetchCard(card.id).then(renderModal).catch(errorHandler);
 };
 
 const subscribeModal = () => cardList.addEventListener('click', modalOnClick);

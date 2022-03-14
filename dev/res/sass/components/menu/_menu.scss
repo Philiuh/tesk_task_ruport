@@ -10,7 +10,7 @@
   }
 }
 
-.menu-text {
+.menu__text {
   @include tx-font-size(24px, 29px);
   width: 50%;
   margin: 0;
@@ -20,7 +20,9 @@
   }
 }
 
-.menu-inner {
+.menu__inner {
+  display: flex;
+  flex-direction: row;
   width: 50%;
   margin-left: 15px;
 
@@ -30,19 +32,19 @@
   }
 }
 
-.menu-checkbox {
+.menu__checkbox {
   @include tx-layer(under);
   position: absolute;
   opacity: 0;
 }
 
-.menu-checkbox + label {
+.menu__checkbox + label {
   display: inline-flex;
   align-items: center;
   user-select: none;
 }
 
-.menu-checkbox + label::before {
+.menu__checkbox + label::before {
   @include tx-pseudo(relative);
   min-width: 20px;
   min-height: 20px;
@@ -50,12 +52,66 @@
   border-radius: 6px;
 }
 
-.menu-checkbox:checked + label::before {
+.menu__checkbox:checked + label::before {
   background: $gray-150 url('/icons/_check.svg') 60% center no-repeat;
 }
 
-.menu-checkbox-label-text {
+.menu__checkbox-label-text {
   @include tx-font-size(14px, 17px);
   margin-left: 10px;
   color: $black-700;
+}
+
+.choices[data-type*='select-one'],
+.choices[data-type*='select-one'].is-open {
+  width: 220px;
+  margin-left: 62px;
+
+  &::after {
+    top: 25%;
+    width: 18px;
+    height: 18px;
+    margin-top: 0;
+    background: url('/icons/_select.svg') center no-repeat;
+    border: 0;
+  }
+}
+
+.choices__inner {
+  @include tx-font-size(14px);
+  display: flex;
+  align-items: center;
+  height: 32px;
+  min-height: 0;
+  padding: 0 !important;
+  line-height: 0;
+  background-color: $gray-150;
+  border: 0;
+  border-radius: 6px;
+}
+
+.is-open .choices__inner {
+  border-radius: 6px 6px 0 0;
+}
+
+.choices__list--single {
+  padding: 0 10px;
+}
+
+.choices__list[aria-expanded] {
+  padding-bottom: 8px;
+  background-color: $gray-150;
+  border-width: 0;
+  border-radius: 0 0 6px 6px;
+
+  .choices__item {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 10px;
+  }
+
+  .choices__item--selectable.is-highlighted {
+    background-color: $yellow-500;
+  }
 }

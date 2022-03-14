@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "private": true,
   "dependencies": {
-    "choices.js": "^10.1.0",
+    "choices.js": "https://github.com/Philiuh/Choices.git",
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {

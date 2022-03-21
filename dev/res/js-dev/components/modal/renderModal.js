@@ -1,17 +1,16 @@
 /* eslint-disable camelcase */
-let cardList;
 let url;
+let cardList;
+let modalCardContainer;
 let modalCard;
 
 const shouldRun = () => document.querySelector('.card');
 
 const findElements = () => {
   cardList = document.querySelector('.js-fetch-cards');
+  modalCardContainer = document.querySelector('.modal__background');
+  modalCard = document.querySelector('.modal__wrapper');
   url = cardList.dataset.fetchOneUrl;
-};
-
-const findModalCard = () => {
-  modalCard = document.querySelector('.modal');
 };
 
 const fetchCard = async (id) =>
@@ -21,56 +20,41 @@ const fetchCard = async (id) =>
 
 const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   return `
-  <div class="modal">
-    <div class="card ${in_reserve ? 'reserved' : ''} card--modal">
-      <button class="close-button--modal"></button>
-      ${
-        in_reserve
-          ? '<div class="reserved-img"><p class="reserved-announcement reserved-announcement--modal">В заповеднике</p></div>'
-          : ''
-      }
-      <img src="${image_url}" class="card-img--modal">
-      <h2 class="card-name ${
-        in_reserve ? 'reserved-text' : ''
-      } card-name--modal">${name}</h2>
-      <p class="card-info ${
-        in_reserve ? 'reserved-text' : ''
-      } card-info--modal">${type}</p>
-      <p class="card-info ${
-        in_reserve ? 'reserved-text' : ''
-      } card-info--modal">${gender}</p>
-      <p class="card-info ${
-        in_reserve ? 'reserved-text' : ''
-      } card-text--modal">${text}</p>
-      <div class="card-button-list--modal">
-          <button class="card-button accept card-button--modal">Принять</button>
-          <button class="card-button reject ${
-            in_reserve ? 'reserved-button' : ''
-          } card-button--modal">Отклонить</button>
+  <div class="${
+    in_reserve ? 'card--reserved reserved reserved--modal' : 'card'
+  } modal" >
+    <img class="card__img modal__img" src="${image_url}" />
+    <div class="modal__container">
+      <h2 class="card__name modal__name">${name}</h2>
+      <p class="card__info modal__info">${type}</p>
+      <p class="card__info modal_info">${gender}</p>
+      <p class="card__info modal__text">${text}</p>
+      <div class="card__button-list modal__button-list">
+        <button class="card__button modal__button accept">Принять</button>
+        <button class="card__button modal__button reject">Отклонить</button>
       </div>
     </div>
   </div>`;
 };
 
 const closeButtonOnClick = (eventData) => {
-  if (eventData.target.classList.contains('close-button--modal')) {
-    document.body.removeChild(modalCard);
+  if (eventData.target.classList.contains('modal__close-button')) {
+    modalCard.innerHTML = '';
+    modalCardContainer.style.visibility = 'hidden';
   }
 };
 const sunscribeCloseButton = () =>
-  modalCard.addEventListener('click', closeButtonOnClick);
+  modalCardContainer.addEventListener('click', closeButtonOnClick);
 
-const renderModal = (cardData, error) => {
-  const rawModalCard = createModal(cardData, error);
-  cardList.insertAdjacentHTML('afterend', rawModalCard);
-  findModalCard();
+const renderModal = (cardData) => {
+  const rawModalCard = createModal(cardData);
+  modalCard.insertAdjacentHTML('afterbegin', rawModalCard);
+  modalCardContainer.style.visibility = 'visible';
   sunscribeCloseButton();
 };
 
-// решил сделать просто вывод ошибки через алерт,
-// тк не придумал, как можно еще выводить ошибку,
-// чтоб не выглядело ебано
 const errorHandler = (error) => {
+  // eslint-disable-next-line no-alert
   alert(error);
 };
 

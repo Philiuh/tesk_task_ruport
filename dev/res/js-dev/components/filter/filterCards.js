@@ -5,7 +5,7 @@ const shouldRun = () => document.querySelector('.menu-checkbox');
 
 const findElements = () => {
   checkbox = document.querySelector('.menu-checkbox');
-  unreservedCards = document.querySelectorAll('.unreserved');
+  unreservedCards = document.querySelectorAll('.card');
 };
 
 const hideCards = () => {

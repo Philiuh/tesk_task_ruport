@@ -1,28 +1,14 @@
-.modal {
+.modal__background {
   @include tx-layer(top);
   position: fixed;
   width: 100%;
   height: 100%;
   overflow: auto;
+  visibility: hidden;
   backdrop-filter: blur(81.5485px);
 }
 
-.close-button--modal {
-  position: absolute;
-  left: $modalWidth + 11px;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  color: $white;
-  background: url('/icons/_close-button.svg');
-
-  @include tx-media(phone) {
-    top: -31px;
-    left: $modalWidthMobile - 20px;
-  }
-}
-
-.card--modal {
+.modal {
   position: absolute;
   top: 80px;
   left: calc(50% - #{$modalWidth / 2});
@@ -37,7 +23,39 @@
   }
 }
 
-.card-img--modal {
+$annoOffset: 30px;
+
+.reserved--modal {
+  &::before {
+    @include tx-font-size(24px);
+    width: calc(100% - #{$annoOffset});
+    max-height: 200px;
+    padding: 20px 0 0 $annoOffset;
+    text-align: left;
+  }
+}
+
+$closeButtonOffsetXDesktop: 11px;
+$closeButtonOffsetXMobile: 20px;
+$closeButtonOffsetYMobile: 49px;
+
+.modal__close-button {
+  position: absolute;
+  top: 80px;
+  left: calc(50% + #{$modalWidth / 2} + #{$closeButtonOffsetXDesktop});
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  color: $white;
+  background: url('/icons/_close-button.svg');
+
+  @include tx-media(phone) {
+    top: $closeButtonOffsetYMobile;
+    left: calc(50% + #{$modalWidthMobile / 2} - #{$closeButtonOffsetXMobile});
+  }
+}
+
+.modal__img {
   width: 100%;
   height: 100%;
   max-height: 400px;
@@ -45,52 +63,41 @@
   border-radius: 6px 6px 0 0;
 }
 
-.card-name--modal {
+.modal__container {
   @include container-width($modalContainerWidth);
+
+  @include tx-media(phone) {
+    @include container-width($modalContainerWidthMobile);
+  }
+}
+
+.modal__name {
   @include tx-font-size(24px, 29px);
-  margin: 20px 0 7px;
-
-  @include tx-media(phone) {
-    @include container-width($modalContainerWidthMobile);
-  }
 }
 
-.card-info--modal {
-  @include container-width($modalContainerWidth);
+.modal__info {
   @include tx-font-size(18px, 18px);
-
-  @include tx-media(phone) {
-    @include container-width($modalContainerWidthMobile);
-  }
 }
 
-.card-text--modal {
-  @include container-width($modalContainerWidth);
+.modal__text {
   margin-top: 16px;
-
-  @include tx-media(phone) {
-    @include container-width($modalContainerWidthMobile);
-  }
 }
 
-.card-button--modal {
+.modal__button-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: none;
+  margin: 36px 0 30px;
+  padding: 0;
+}
+
+.modal__button {
   max-width: 180px;
   margin: 0;
 
   @include tx-media(phone) {
     max-width: 120px;
-  }
-}
-
-.card-button-list--modal {
-  @include container-width($modalContainerWidth);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 36px 0 30px;
-
-  @include tx-media(phone) {
-    @include container-width($modalContainerWidthMobile);
   }
 }

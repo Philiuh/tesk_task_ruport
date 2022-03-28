@@ -1,4 +1,4 @@
-.modal__background {
+.modal__container {
   @include tx-layer(top);
   position: fixed;
   width: 100%;
@@ -15,7 +15,7 @@
   display: block;
   max-width: $modalWidth;
   max-height: fit-content;
-  cursor: auto;
+  border-radius: 6px;
 
   @include tx-media(phone) {
     left: calc(50% - #{$modalWidthMobile / 2});
@@ -23,14 +23,14 @@
   }
 }
 
-$annoOffset: 30px;
+$pseudoOffset: 30px;
 
 .reserved--modal {
   &::before {
     @include tx-font-size(24px);
-    width: calc(100% - #{$annoOffset});
+    width: calc(100% - #{$pseudoOffset});
     max-height: 200px;
-    padding: 20px 0 0 $annoOffset;
+    padding: 20px 0 0 $pseudoOffset;
     text-align: left;
   }
 }
@@ -63,7 +63,7 @@ $closeButtonOffsetYMobile: 49px;
   border-radius: 6px 6px 0 0;
 }
 
-.modal__container {
+.modal__inner {
   @include container-width($modalContainerWidth);
 
   @include tx-media(phone) {

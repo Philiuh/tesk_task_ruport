@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 let cards;
 let url;
 
@@ -9,23 +8,25 @@ const findElements = () => {
   url = cards.dataset.fetchAllUrl;
 };
 
+/* eslint-disable camelcase */
 const createCards = (
   articles,
   { id, in_reserve, name, image_url, type, gender }
 ) => {
   return `${articles}
     <article id='${id}'
-    class="${in_reserve ? 'card--reserved reserved' : 'card'}" >
+    class="${in_reserve ? 'card card--reserved' : 'card'}" >
       <img class="card__img" src="${image_url}" />
       <h2 class="card__name">${name}</h2>
       <p class="card__info">${type}</p>
       <p class="card__info">${gender}</p>
       <div class="card__button-list">
-        <button class="card__button accept">Принять</button>
-        <button class="card__button reject">Отклонить</button>
+        <button class="card__button">Принять</button>
+        <button class="card__button--reject">Отклонить</button>
       </div>
     </article>`;
 };
+/* eslint-enable camelcase */
 
 const renderCards = (cardsData) => {
   return new Promise((resolve) => {
@@ -35,13 +36,13 @@ const renderCards = (cardsData) => {
   });
 };
 
-const fetchCards = async () => {
+const fetchCards = () => {
   return fetch(url)
     .then((response) => response.json())
     .then((json) => json.results.data);
 };
 
-export default async () => {
+export default () => {
   if (!shouldRun()) {
     return Promise.reject();
   }

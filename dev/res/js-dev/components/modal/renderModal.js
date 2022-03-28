@@ -8,15 +8,16 @@ const shouldRun = () => document.querySelector('.card');
 
 const findElements = () => {
   cardList = document.querySelector('.js-fetch-cards');
-  modalCardContainer = document.querySelector('.modal__background');
+  modalCardContainer = document.querySelector('.modal__container');
   modalCard = document.querySelector('.modal__wrapper');
   url = cardList.dataset.fetchOneUrl;
 };
 
-const fetchCard = async (id) =>
-  fetch(url + id)
+const fetchCard = (id) => {
+  return fetch(url + id)
     .then((response) => response.json())
     .then((json) => json.data);
+};
 
 const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   return `
@@ -24,14 +25,14 @@ const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
     in_reserve ? 'card--reserved reserved reserved--modal' : 'card'
   } modal" >
     <img class="card__img modal__img" src="${image_url}" />
-    <div class="modal__container">
+    <div class="modal__inner">
       <h2 class="card__name modal__name">${name}</h2>
       <p class="card__info modal__info">${type}</p>
       <p class="card__info modal_info">${gender}</p>
       <p class="card__info modal__text">${text}</p>
       <div class="card__button-list modal__button-list">
-        <button class="card__button modal__button accept">Принять</button>
-        <button class="card__button modal__button reject">Отклонить</button>
+        <button class="card__button modal__button">Принять</button>
+        <button class="card__button--reject modal__button">Отклонить</button>
       </div>
     </div>
   </div>`;
@@ -50,13 +51,10 @@ const renderModal = (cardData) => {
   const rawModalCard = createModal(cardData);
   modalCard.insertAdjacentHTML('afterbegin', rawModalCard);
   modalCardContainer.style.visibility = 'visible';
-  sunscribeCloseButton();
 };
 
-const errorHandler = (error) => {
-  // eslint-disable-next-line no-alert
-  alert(error);
-};
+// eslint-disable-next-line no-alert
+const errorHandler = (error) => alert(error);
 
 const modalOnClick = ({ target, path }) => {
   if (target.tagName === 'BUTTON' || target.classList.contains('cards')) return;
@@ -71,5 +69,6 @@ export default () => {
     return;
   }
   findElements();
+  sunscribeCloseButton();
   subscribeModal();
 };

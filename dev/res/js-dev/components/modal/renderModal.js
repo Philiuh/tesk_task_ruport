@@ -3,6 +3,7 @@ let url;
 let cardList;
 let modalCardContainer;
 let modalCard;
+let closeButton;
 
 const shouldRun = () => document.querySelector('.card');
 
@@ -10,6 +11,7 @@ const findElements = () => {
   cardList = document.querySelector('.js-fetch-cards');
   modalCardContainer = document.querySelector('.modal__container');
   modalCard = document.querySelector('.modal__wrapper');
+  closeButton = document.querySelector('.modal__close-button');
   url = cardList.dataset.fetchOneUrl;
 };
 
@@ -38,14 +40,14 @@ const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   </div>`;
 };
 
-const closeButtonOnClick = (eventData) => {
-  if (eventData.target.classList.contains('modal__close-button')) {
-    modalCard.innerHTML = '';
-    modalCardContainer.style.visibility = 'hidden';
-  }
+const closeButtonOnClick = () => {
+  modalCard.innerHTML = '';
+  modalCardContainer.style.visibility = 'hidden';
 };
-const sunscribeCloseButton = () =>
-  modalCardContainer.addEventListener('click', closeButtonOnClick);
+
+const sunscribeCloseButton = () => {
+  closeButton.addEventListener('click', closeButtonOnClick);
+};
 
 const renderModal = (cardData) => {
   const rawModalCard = createModal(cardData);
@@ -53,8 +55,10 @@ const renderModal = (cardData) => {
   modalCardContainer.style.visibility = 'visible';
 };
 
-// eslint-disable-next-line no-alert
-const errorHandler = (error) => alert(error);
+const errorHandler = (error) => {
+  // eslint-disable-next-line no-alert
+  alert(error);
+};
 
 const modalOnClick = ({ target, path }) => {
   if (target.tagName === 'BUTTON' || target.classList.contains('cards')) return;
@@ -64,11 +68,15 @@ const modalOnClick = ({ target, path }) => {
 
 const subscribeModal = () => cardList.addEventListener('click', modalOnClick);
 
+const subscribe = () => {
+  sunscribeCloseButton();
+  subscribeModal();
+};
+
 export default () => {
   if (!shouldRun()) {
     return;
   }
   findElements();
-  sunscribeCloseButton();
-  subscribeModal();
+  subscribe();
 };

@@ -30,7 +30,9 @@ const onChange = () => {
   }
 };
 
-const subscribeFilter = () => checkbox.addEventListener('change', onChange);
+const subscribeFilter = () => {
+  checkbox.addEventListener('change', onChange);
+};
 
 export default () => {
   if (!shouldRun()) {

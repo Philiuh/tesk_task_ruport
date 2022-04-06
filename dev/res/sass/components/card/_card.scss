@@ -44,6 +44,10 @@
   margin: 0 0 10px;
   padding-top: 20px;
   font-weight: 400;
+
+  %modal__inner & {
+    @include tx-font-size(24px, 29px);
+  }
 }
 
 .card__info {
@@ -53,7 +57,11 @@
   font-weight: 400;
 
   %card--reserved & {
-    color: $white;
+    color: $gray-100;
+  }
+
+  %modal__inner & {
+    @include tx-font-size(18px, 18px);
   }
 }
 
@@ -80,7 +88,6 @@
   }
 
   &--reject {
-    @extend .card__button;
     margin-bottom: 0;
     color: $white;
     background-color: $green-1100;

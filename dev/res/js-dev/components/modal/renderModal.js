@@ -28,13 +28,13 @@ const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   } modal" >
     <img class="card__img modal__img" src="${image_url}" />
     <div class="modal__inner">
-      <h2 class="card__name modal__name">${name}</h2>
-      <p class="card__info modal__info">${type}</p>
-      <p class="card__info modal_info">${gender}</p>
+      <h2 class="card__name">${name}</h2>
+      <p class="card__info">${type}</p>
+      <p class="card__info">${gender}</p>
       <p class="card__info modal__text">${text}</p>
       <div class="card__button-list modal__button-list">
         <button class="card__button modal__button">Принять</button>
-        <button class="card__button--reject modal__button">Отклонить</button>
+        <button class="card__button card__button--reject modal__button">Отклонить</button>
       </div>
     </div>
   </div>`;
@@ -43,10 +43,6 @@ const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
 const closeButtonOnClick = () => {
   modalCard.innerHTML = '';
   modalCardContainer.style.visibility = 'hidden';
-};
-
-const sunscribeCloseButton = () => {
-  closeButton.addEventListener('click', closeButtonOnClick);
 };
 
 const renderModal = (cardData) => {
@@ -66,11 +62,9 @@ const modalOnClick = ({ target, path }) => {
   fetchCard(card.id).then(renderModal).catch(errorHandler);
 };
 
-const subscribeModal = () => cardList.addEventListener('click', modalOnClick);
-
 const subscribe = () => {
-  sunscribeCloseButton();
-  subscribeModal();
+  closeButton.addEventListener('click', closeButtonOnClick);
+  cardList.addEventListener('click', modalOnClick);
 };
 
 export default () => {

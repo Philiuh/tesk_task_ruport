@@ -22,7 +22,7 @@ const createCards = (
       <p class="card__info">${gender}</p>
       <div class="card__button-list">
         <button class="card__button">Принять</button>
-        <button class="card__button--reject">Отклонить</button>
+        <button class="card__button card__button--reject">Отклонить</button>
       </div>
     </article>`;
 };

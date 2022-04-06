@@ -64,6 +64,7 @@ $closeButtonOffsetYMobile: 49px;
 }
 
 .modal__inner {
+  @extend %modal__inner;
   @include container-width($modalContainerWidth);
 
   @include tx-media(phone) {
@@ -71,15 +72,10 @@ $closeButtonOffsetYMobile: 49px;
   }
 }
 
-.modal__name {
-  @include tx-font-size(24px, 29px);
-}
-
-.modal__info {
-  @include tx-font-size(18px, 18px);
-}
-
+// почему этот класс игнорится? он же по приоритету должен быть
+// сильнее, чем extend от класса modal__inner?
 .modal__text {
+  @include tx-font-size(14px, 17px);
   margin-top: 16px;
 }
 

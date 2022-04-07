@@ -15,7 +15,7 @@ const createCards = (
 ) => {
   return `${articles}
     <article id='${id}'
-    class="${in_reserve ? 'card card--reserved' : 'card'}" >
+    class="card ${in_reserve ? 'card--reserved' : ''}" >
       <img class="card__img" src="${image_url}" />
       <h2 class="card__name">${name}</h2>
       <p class="card__info">${type}</p>

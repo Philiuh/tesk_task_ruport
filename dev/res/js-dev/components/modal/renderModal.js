@@ -24,7 +24,7 @@ const fetchCard = (id) => {
 const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   return `
   <div class="${
-    in_reserve ? 'card--reserved reserved reserved--modal' : 'card'
+    in_reserve ? 'card--reserved reserved modal--reserved' : 'card'
   } modal" >
     <img class="card__img modal__img" src="${image_url}" />
     <div class="modal__inner">

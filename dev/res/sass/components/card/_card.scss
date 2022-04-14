@@ -1,36 +1,86 @@
+$pseudoOffset: 30px;
+
 .card {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 100%;
+  overflow: hidden;
   background-color: $white;
   border-radius: 6px;
+  cursor: pointer;
+
+  &--reserved {
+    @extend %card--reserved;
+    color: $white;
+    background-color: $green-1100;
+
+    &::before {
+      @include tx-font-size(18px);
+      @include tx-pseudo(absolute, block, 'В заповеднике');
+      width: 100%;
+      height: 100%;
+      max-height: 130px;
+      padding-top: 16px;
+      color: $green-900;
+      text-align: center;
+      background: linear-gradient(
+        180deg,
+        $green-1100 0%,
+        rgba(32, 128, 133, 0.0001) 85%
+      );
+    }
+
+    %modal__container & {
+      &::before {
+        @include tx-font-size(24px);
+        width: calc(100% - #{$pseudoOffset});
+        max-height: 180px;
+        padding: 20px 0 0 $pseudoOffset;
+        text-align: left;
+      }
+    }
+  }
 }
 
-.card-img {
+.card__img {
   width: 100%;
-  height: 100%;
-  max-height: 146px;
+  height: 146px;
   object-fit: cover;
-  border-radius: 6px 6px 0 0;
+  background-color: $gray-300;
+
+  %modal__container & {
+    height: 400px;
+  }
 }
 
-.card-name {
+.card__name {
   @include tx-font-size(18px);
   margin: 0 0 10px;
   padding-top: 20px;
   font-weight: 400;
+
+  %modal__container & {
+    @include tx-font-size(24px, 29px);
+  }
 }
 
-.card-info {
-  @include tx-font-size(14px, 9.5px);
+.card__info {
+  @include tx-font-size(14px, 10px);
   margin: 0;
   color: $gray-700;
-  font-weight: 400;
+
+  %card--reserved & {
+    color: $gray-100;
+  }
+
+  %modal__container & {
+    @include tx-font-size(18px, 18px);
+  }
 }
 
-.card-button-list {
+.card__button-list {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,20 +89,30 @@
   padding: 25px 20px 20px;
 }
 
-.card-button {
+.card__button {
   @include tx-font-size(14px);
   width: 100%;
   height: 32px;
-  border-radius: 16px;
-}
-
-.accept {
   margin-bottom: 10px;
   color: $green-1100;
   background-color: $green-900;
-}
+  border-radius: 16px;
 
-.reject {
-  color: $white;
-  background-color: $green-1100;
+  &:hover {
+    background-color: $yellow-500;
+  }
+
+  &--reject {
+    margin-bottom: 0;
+    color: $white;
+    background-color: $green-1100;
+
+    &:hover {
+      background-color: $green-1200;
+    }
+
+    %card--reserved & {
+      border: 2px solid $white;
+    }
+  }
 }

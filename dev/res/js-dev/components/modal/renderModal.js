@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 let url;
 let cardList;
 let modalCardContainer;
@@ -21,17 +20,16 @@ const fetchCard = (id) => {
     .then((json) => json.data);
 };
 
+/* eslint-disable camelcase */
 const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
   return `
-  <div class="${
-    in_reserve ? 'card--reserved reserved modal--reserved' : 'card'
-  } modal" >
-    <img class="card__img modal__img" src="${image_url}" />
+  <div class="card modal ${in_reserve ? 'card--reserved' : ''}">
+    <img class="card__img" src="${image_url}" />
     <div class="modal__inner">
       <h2 class="card__name">${name}</h2>
       <p class="card__info">${type}</p>
       <p class="card__info">${gender}</p>
-      <p class="card__info modal__text">${text}</p>
+      <p class="modal__description">${text}</p>
       <div class="card__button-list modal__button-list">
         <button class="card__button modal__button">Принять</button>
         <button class="card__button card__button--reject modal__button">Отклонить</button>
@@ -39,6 +37,7 @@ const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
     </div>
   </div>`;
 };
+/* eslint-enable camelcase */
 
 const closeButtonOnClick = () => {
   modalCard.innerHTML = '';

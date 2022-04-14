@@ -1,3 +1,5 @@
+$pseudoOffset: 30px;
+
 .card {
   position: relative;
   display: flex;
@@ -29,6 +31,16 @@
         rgba(32, 128, 133, 0.0001) 85%
       );
     }
+
+    %modal__container & {
+      &::before {
+        @include tx-font-size(24px);
+        width: calc(100% - #{$pseudoOffset});
+        max-height: 180px;
+        padding: 20px 0 0 $pseudoOffset;
+        text-align: left;
+      }
+    }
   }
 }
 
@@ -37,6 +49,10 @@
   height: 146px;
   object-fit: cover;
   background-color: $gray-300;
+
+  %modal__container & {
+    height: 400px;
+  }
 }
 
 .card__name {
@@ -45,7 +61,7 @@
   padding-top: 20px;
   font-weight: 400;
 
-  %modal__inner & {
+  %modal__container & {
     @include tx-font-size(24px, 29px);
   }
 }
@@ -54,13 +70,12 @@
   @include tx-font-size(14px, 10px);
   margin: 0;
   color: $gray-700;
-  font-weight: 400;
 
   %card--reserved & {
     color: $gray-100;
   }
 
-  %modal__inner & {
+  %modal__container & {
     @include tx-font-size(18px, 18px);
   }
 }

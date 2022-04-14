@@ -11,14 +11,18 @@ const findElements = () => {
 const hideCards = () => {
   cards.forEach((card) => {
     const assignCard = card;
-    if (assignCard.className === 'card ') assignCard.style.display = 'none';
+    if (!assignCard.classList.value.includes('card--reserved')) {
+      assignCard.style.display = 'none';
+    }
   });
 };
 
 const showCards = () => {
   cards.forEach((card) => {
     const assignCard = card;
-    if (assignCard.className === 'card ') assignCard.style.display = 'flex';
+    if (!assignCard.classList.value.includes('card--reserved')) {
+      assignCard.style.display = 'flex';
+    }
   });
 };
 

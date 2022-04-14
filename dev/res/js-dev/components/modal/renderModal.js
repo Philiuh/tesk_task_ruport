@@ -30,7 +30,7 @@ const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
       <p class="card__info">${type}</p>
       <p class="card__info">${gender}</p>
       <p class="modal__description">${text}</p>
-      <div class="card__button-list modal__button-list">
+      <div class="modal__button-list">
         <button class="card__button modal__button">Принять</button>
         <button class="card__button card__button--reject modal__button">Отклонить</button>
       </div>

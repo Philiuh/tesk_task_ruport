@@ -7,9 +7,7 @@ const findElements = () => {
   const select = new Choices(element, {
     searchEnabled: false,
     itemSelectText: '',
-    classNames: {
-      focusState: '',
-    },
+    allowHTML: true,
   });
 };
 

@@ -1,0 +1,84 @@
+.modal__container {
+  @extend %modal__container;
+  @include tx-layer(top);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  visibility: hidden;
+  backdrop-filter: blur(81.5485px);
+}
+
+.modal {
+  position: absolute;
+  top: 80px;
+  left: calc(50% - #{$modalWidth / 2});
+  display: block;
+  max-width: $modalWidth;
+  max-height: fit-content;
+  overflow: hidden;
+  border-radius: 6px;
+  cursor: auto;
+
+  @include tx-media(phone) {
+    left: calc(50% - #{$modalWidthMobile / 2});
+    max-width: $modalWidthMobile;
+  }
+}
+
+$closeButtonOffsetXDesktop: 11px;
+$closeButtonOffsetXMobile: 20px;
+$closeButtonOffsetYMobile: 49px;
+
+.modal__close-button {
+  position: absolute;
+  top: 80px;
+  left: calc(50% + #{$modalWidth / 2} + #{$closeButtonOffsetXDesktop});
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  color: $white;
+  background: url('/icons/_close-button.svg');
+
+  @include tx-media(phone) {
+    top: $closeButtonOffsetYMobile;
+    left: calc(50% + #{$modalWidthMobile / 2} - #{$closeButtonOffsetXMobile});
+  }
+}
+
+.modal__inner {
+  @include container-width($modalContainerWidth);
+
+  @include tx-media(phone) {
+    @include container-width($modalContainerWidthMobile);
+  }
+}
+
+.modal__description {
+  @include tx-font-size(14px, 10px);
+  margin: 16px 0 0 0;
+  color: $gray-700;
+
+  %card--reserved & {
+    color: $gray-100;
+  }
+}
+
+.modal__button-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: none;
+  margin: 36px 0 30px;
+  padding: 0;
+}
+
+.modal__button {
+  max-width: 180px;
+  margin: 0;
+
+  @include tx-media(phone) {
+    max-width: 120px;
+  }
+}

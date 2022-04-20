@@ -1,24 +1,28 @@
-let unreservedCards;
+let cards;
 let checkbox;
 
-const shouldRun = () => document.querySelector('.menu-checkbox');
+const shouldRun = () => document.querySelector('.menu__checkbox');
 
 const findElements = () => {
-  checkbox = document.querySelector('.menu-checkbox');
-  unreservedCards = document.querySelectorAll('.unreserved');
+  checkbox = document.querySelector('.menu__checkbox');
+  cards = document.querySelectorAll('.card');
 };
 
 const hideCards = () => {
-  unreservedCards.forEach((unreservedCard) => {
-    const changedUnreservedCard = unreservedCard;
-    changedUnreservedCard.style.display = 'none';
+  cards.forEach((card) => {
+    const assignCard = card;
+    if (!assignCard.classList.value.includes('card--reserved')) {
+      assignCard.style.display = 'none';
+    }
   });
 };
 
 const showCards = () => {
-  unreservedCards.forEach((unreservedCard) => {
-    const changedUnreservedCard = unreservedCard;
-    changedUnreservedCard.style.display = 'flex';
+  cards.forEach((card) => {
+    const assignCard = card;
+    if (!assignCard.classList.value.includes('card--reserved')) {
+      assignCard.style.display = 'flex';
+    }
   });
 };
 

@@ -8,13 +8,14 @@ const findElements = () => {
   url = cards.dataset.fetchAllUrl;
 };
 
+// incoming dismissed taken
 /* eslint-disable camelcase */
 const createCards = (
   articles,
   { id, in_reserve, name, image_url, type, gender }
 ) => {
   return `${articles}
-    <article id='${id}'
+    <article id='${id}' data-status='incoming'
     class="card ${in_reserve ? 'card--reserved' : ''}" >
       <img class="card__img" src="${image_url}" />
       <h2 class="card__name">${name}</h2>

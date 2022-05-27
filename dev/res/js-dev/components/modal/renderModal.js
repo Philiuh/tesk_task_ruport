@@ -40,7 +40,6 @@ const createModal = (
           ? '<div class="modal__button-list"><button class="card__button modal__button">Принять</button><button class="card__button card__button--reject modal__button">Отклонить</button></div>'
           : ''
       }
-      
     </div>
   </div>`;
 };

@@ -40,6 +40,7 @@ const CONFIG = {
 };
 
 const loadConfig = require('load-grunt-config');
+
 const configPath = `${process.cwd()}/grunt/tasks/`;
 const staticMappings = require('./grunt/tx/tx-mapping');
 const data = require('./grunt/tx/tx-config')(CONFIG);

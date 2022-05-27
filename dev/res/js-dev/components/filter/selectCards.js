@@ -2,16 +2,20 @@ import Choices from 'choices.js';
 
 let element;
 let select;
+let cards;
+let options;
+let checkbox;
+const selectOptions = [];
 
-const selectOptions = [
-  'Входящие медведи',
-  'Принятые медведи',
-  'Отклонённые медведи',
-];
-
-const shouldRun = () => 1;
+const shouldRun = () => document.querySelector('.menu__select');
 
 const findElements = () => {
+  cards = document.querySelectorAll('.card');
+  checkbox = document.querySelector('.menu__checkbox');
+  options = document.querySelectorAll('.menu__option');
+  for (let i = 0; i < options.length; i += 1) {
+    selectOptions.push(options[i].value);
+  }
   element = document.querySelector('.menu__select');
   select = new Choices(element, {
     searchEnabled: false,
@@ -37,16 +41,42 @@ const removeSelectedOption = (selectedOption) => {
   );
 };
 
+const changeCardsVisibility = (cardStatus) => {
+  if (checkbox.checked) {
+    cards.forEach((card) => {
+      const assignCard = card;
+      if (
+        !(assignCard.dataset.status === cardStatus) ||
+        !assignCard.classList.value.includes('card--reserved')
+      ) {
+        assignCard.style.display = 'none';
+      } else assignCard.style.display = 'flex';
+    });
+  } else
+    cards.forEach((card) => {
+      const assignCard = card;
+      if (!(assignCard.dataset.status === cardStatus)) {
+        assignCard.style.display = 'none';
+      } else assignCard.style.display = 'flex';
+    });
+};
+
 const chooseSelectElement = (event) => {
   switch (event.detail.choice.value) {
+    // incoming
     case selectOptions[0]:
       removeSelectedOption(selectOptions[0]);
+      changeCardsVisibility('входящие');
       break;
+    // taken
     case selectOptions[1]:
       removeSelectedOption(selectOptions[1]);
+      changeCardsVisibility('принятые');
       break;
+    // dismissed
     case selectOptions[2]:
       removeSelectedOption(selectOptions[2]);
+      changeCardsVisibility('отклонённые');
       break;
     default:
       break;
@@ -56,8 +86,8 @@ const chooseSelectElement = (event) => {
 const subscribeSelect = () => {
   select.setChoices(
     [
-      { value: 'Отклонённые медведи', label: 'Отклонённые медведи' },
-      { value: 'Принятые медведи', label: 'Принятые медведи' },
+      { value: selectOptions[1], label: selectOptions[1] },
+      { value: selectOptions[2], label: selectOptions[2] },
     ],
     'value',
     'label',

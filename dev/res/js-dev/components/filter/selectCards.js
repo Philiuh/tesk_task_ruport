@@ -43,6 +43,14 @@ const removeSelectedOption = (selectedOption) => {
   );
 };
 
+const changePageTitle = (selectStatus) => {
+  if (selectStatus !== 'входящие') {
+    pageTitle.innerHTML = `${
+      selectStatus[0].toUpperCase() + selectStatus.slice(1)
+    } медведи`;
+  } else pageTitle.innerHTML = 'Поступившие заявки';
+};
+
 const changeCardsVisibility = (cardStatus) => {
   if (checkbox.checked) {
     cards.forEach((card) => {
@@ -61,11 +69,7 @@ const changeCardsVisibility = (cardStatus) => {
         assignCard.style.display = 'none';
       } else assignCard.style.display = 'flex';
     });
-  if (cardStatus !== 'входящие') {
-    pageTitle.innerHTML = `${
-      cardStatus[0].toUpperCase() + cardStatus.slice(1)
-    } медведи`;
-  } else pageTitle.innerHTML = 'Поступившие заявки';
+  changePageTitle(cardStatus);
 };
 
 const chooseSelectElement = (event) => {

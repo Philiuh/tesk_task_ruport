@@ -5,6 +5,7 @@ let select;
 let cards;
 let options;
 let checkbox;
+let pageTitle;
 const selectOptions = [];
 
 const shouldRun = () => document.querySelector('.menu__select');
@@ -13,6 +14,7 @@ const findElements = () => {
   cards = document.querySelectorAll('.card');
   checkbox = document.querySelector('.menu__checkbox');
   options = document.querySelectorAll('.menu__option');
+  pageTitle = document.querySelector('.menu__text');
   for (let i = 0; i < options.length; i += 1) {
     selectOptions.push(options[i].value);
   }
@@ -59,6 +61,11 @@ const changeCardsVisibility = (cardStatus) => {
         assignCard.style.display = 'none';
       } else assignCard.style.display = 'flex';
     });
+  if (cardStatus !== 'входящие') {
+    pageTitle.innerHTML = `${
+      cardStatus[0].toUpperCase() + cardStatus.slice(1)
+    } медведи`;
+  } else pageTitle.innerHTML = 'Поступившие заявки';
 };
 
 const chooseSelectElement = (event) => {

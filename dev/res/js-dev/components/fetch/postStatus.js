@@ -1,38 +1,24 @@
 let cards;
 let url;
-let modal;
 
 const findElements = () => {
   cards = document.querySelector('.js-fetch-cards');
   url = cards.dataset.fetchAllUrl;
-  modal = document.querySelector('.modal__wrapper');
+  cards = [...cards.childNodes];
 };
 
-// тут для того чтобы поменять статус одной карточки идет проход по всем карточкам. другой вариант - обращаться к конкретной карточке через дом
 const changeCardStatus = (status, id) => {
-  cards.childNodes.forEach((card) => {
-    const assignCard = card;
-    if (assignCard.id === id && status === 'отклонённые') {
-      assignCard.dataset.status = 'отклонённые';
-      assignCard.childNodes[assignCard.childNodes.length - 2].outerHTML = '';
-      if (modal.childNodes[1]) {
-        // полное погружение какое-то выходит. есть способы написать это менее ебано?
-        modal.childNodes[1].childNodes[3].childNodes[9].innerHTML = '';
-      }
-      // очень ебаный способ менять расположение текста после удаления кнопок, но вместе с этим самый простой
-      // другой способ который я вижу делается через 2 обертки и отрицательные маргины в одном из них, но это нагрузит верстку
-      assignCard.childNodes[3].style.paddingTop = '60px';
-      assignCard.style.display = 'none';
-    } else if (assignCard.id === id && status === 'принятые') {
-      assignCard.dataset.status = 'принятые';
-      assignCard.childNodes[assignCard.childNodes.length - 2].outerHTML = '';
-      if (modal.childNodes[1]) {
-        modal.childNodes[1].childNodes[3].childNodes[9].innerHTML = '';
-      }
-      assignCard.childNodes[3].style.paddingTop = '60px';
-      assignCard.style.display = 'none';
-    }
-  });
+  const card = cards.find((item) => item.id === id);
+  card.dataset.status = status;
+  // удаление кнопок с карточки
+  card.childNodes[card.childNodes.length - 2].outerHTML = '';
+  const modalButtons = document.querySelector('.modal__button-list');
+  if (modalButtons) {
+    modalButtons.innerHTML = '';
+  }
+  // добавление отступа классу card__name в карточках
+  card.childNodes[3].style.paddingTop = '60px';
+  card.style.display = 'none';
 };
 
 function postStatus(id, action) {

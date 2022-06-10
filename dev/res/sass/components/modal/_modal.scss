@@ -25,6 +25,10 @@
     left: calc(50% - #{$modalWidthMobile / 2});
     max-width: $modalWidthMobile;
   }
+
+  &--processed {
+    @extend %modal--processed;
+  }
 }
 
 $closeButtonOffsetXDesktop: 11px;
@@ -73,6 +77,10 @@ $closeButtonOffsetYMobile: 49px;
   max-width: none;
   margin: -33px 0 30px;
   padding: 0;
+
+  %modal--processed & {
+    display: none;
+  }
 }
 
 .modal__button {

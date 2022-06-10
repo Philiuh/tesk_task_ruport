@@ -1,4 +1,4 @@
-import subscribeButton, { buttonOnClick } from '../fetch/postStatus';
+import subscribeButton, { postStatus } from '../fetch/postStatus';
 
 let url;
 let cardList;
@@ -67,6 +67,21 @@ const modalOnClick = ({ target, path }) => {
   fetchCard(card.id)
     .then((response) => renderModal(response, card))
     .catch(errorHandler);
+};
+
+const buttonOnClick = ({ target, path }) => {
+  const card = path.find((cardArticle) => cardArticle.id);
+  if (
+    target.tagName === 'BUTTON' &&
+    target.classList.contains('card__button--reject')
+  ) {
+    postStatus(card.id, 'reject-bear');
+  } else if (
+    target.tagName === 'BUTTON' &&
+    target.className !== 'modal__close-button'
+  ) {
+    postStatus(card.id, 'resolve-bear');
+  }
 };
 
 const subscribe = () => {

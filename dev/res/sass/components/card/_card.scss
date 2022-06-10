@@ -43,6 +43,10 @@ $pseudoOffset: 30px;
       }
     }
   }
+
+  &--processed {
+    @extend %card--processed;
+  }
 }
 
 .card__img {
@@ -64,6 +68,10 @@ $pseudoOffset: 30px;
 
   %modal__container & {
     @include tx-font-size(24px, 29px);
+  }
+
+  %card--processed & {
+    padding-top: 60px;
   }
 }
 
@@ -88,6 +96,10 @@ $pseudoOffset: 30px;
   width: 100%;
   max-width: 180px;
   padding: 25px 20px 20px;
+
+  %card--processed & {
+    display: none;
+  }
 }
 
 .card__button {

@@ -1,4 +1,4 @@
-import subscribeButton, { buttonOnClick } from './postStatus';
+import subscribeButton, { postStatus } from './postStatus';
 
 let cards;
 let url;
@@ -42,6 +42,18 @@ const fetchCards = () => {
   return fetch(`${url}get-bears`)
     .then((response) => response.json())
     .then((json) => json.results.data);
+};
+
+const buttonOnClick = ({ target, path }) => {
+  const card = path.find((cardArticle) => cardArticle.id);
+  if (
+    target.tagName === 'BUTTON' &&
+    target.classList.contains('card__button--reject')
+  ) {
+    postStatus(card.id, 'reject-bear');
+  } else if (target.tagName === 'BUTTON') {
+    postStatus(card.id, 'resolve-bear');
+  }
 };
 
 const subscribe = () => {

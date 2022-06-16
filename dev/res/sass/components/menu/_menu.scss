@@ -35,33 +35,3 @@
     flex-direction: column;
   }
 }
-
-.menu__checkbox {
-  @include tx-layer(under);
-  position: absolute;
-  opacity: 0;
-}
-
-.menu__checkbox + label {
-  display: inline-flex;
-  align-items: center;
-  user-select: none;
-}
-
-.menu__checkbox + label::before {
-  @include tx-pseudo(relative);
-  min-width: 20px;
-  min-height: 20px;
-  background: $gray-150;
-  border-radius: 6px;
-}
-
-.menu__checkbox:checked + label::before {
-  background: $gray-150 url('/icons/_check.svg') 60% center no-repeat;
-}
-
-.menu__checkbox-label-text {
-  @include tx-font-size(14px, 17px);
-  margin-left: 10px;
-  color: $black-700;
-}

@@ -61,11 +61,15 @@ $closeButtonOffsetYMobile: 49px;
 
 .modal__description {
   @include tx-font-size(14px, 10px);
-  margin: 16px 0 66px 0;
+  margin: 16px 0 36px;
   color: $gray-700;
 
   %card--reserved & {
     color: $gray-100;
+  }
+
+  %modal--processed & {
+    margin-bottom: 66px;
   }
 }
 
@@ -75,7 +79,7 @@ $closeButtonOffsetYMobile: 49px;
   align-items: center;
   justify-content: space-between;
   max-width: none;
-  margin: -33px 0 30px;
+  margin: 0 0 30px;
   padding: 0;
 
   %modal--processed & {

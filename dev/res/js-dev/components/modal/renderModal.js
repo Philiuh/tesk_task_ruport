@@ -28,18 +28,22 @@ const createModal = (
   { dataset }
 ) => {
   return `
-  <div id=${id} class="card modal ${in_reserve ? 'card--reserved' : ''}">
+  <div id=${id} class="
+    card 
+    modal 
+    ${in_reserve ? 'card--reserved' : ''} 
+    ${dataset.status === 'входящие' ? '' : 'modal--processed'}
+  ">
     <img class="card__img" src="${image_url}" />
     <div class="modal__inner">
       <h2 class="card__name">${name}</h2>
       <p class="card__info">${type}</p>
       <p class="card__info">${gender}</p>
       <p class="modal__description">${text}</p>
-      ${
-        dataset.status === 'входящие'
-          ? '<div class="modal__button-list"><button class="card__button modal__button">Принять</button><button class="card__button card__button--reject modal__button">Отклонить</button></div>'
-          : ''
-      }
+      <div class="modal__button-list">
+        <button class="card__button modal__button">Принять</button>
+        <button class="card__button card__button--reject modal__button">Отклонить</button>
+      </div>
     </div>
   </div>`;
 };
@@ -69,7 +73,7 @@ const modalOnClick = ({ target, path }) => {
     .catch(errorHandler);
 };
 
-const buttonOnClick = ({ target, path }) => {
+const modalContainerOnClick = ({ target, path }) => {
   const card = path.find((cardArticle) => cardArticle.id);
   if (
     target.tagName === 'BUTTON' &&
@@ -88,7 +92,7 @@ const subscribe = () => {
   closeButton.addEventListener('click', closeButtonOnClick);
   cardList.addEventListener('click', modalOnClick);
   subscribeButton();
-  modalCardContainer.addEventListener('click', buttonOnClick);
+  modalCardContainer.addEventListener('click', modalContainerOnClick);
 };
 
 export default () => {

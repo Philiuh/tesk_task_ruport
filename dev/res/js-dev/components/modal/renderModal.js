@@ -29,9 +29,9 @@ const createModal = (
 ) => {
   return `
   <div id=${id} class="
-    card 
-    modal 
-    ${in_reserve ? 'card--reserved' : ''} 
+    card
+    modal
+    ${in_reserve ? 'card--reserved' : ''}
     ${dataset.status === 'входящие' ? '' : 'modal--processed'}
   ">
     <img class="card__img" src="${image_url}" />

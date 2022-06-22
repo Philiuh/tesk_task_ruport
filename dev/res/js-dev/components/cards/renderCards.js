@@ -1,4 +1,4 @@
-import subscribeButton, { postStatus } from './postStatus';
+import postStatus from '../fetch/postStatus';
 
 let cards;
 let url;
@@ -57,7 +57,6 @@ const buttonOnClick = ({ target, path }) => {
 };
 
 const subscribe = () => {
-  subscribeButton();
   cards.addEventListener('click', buttonOnClick);
 };
 

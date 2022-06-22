@@ -1,4 +1,4 @@
-import subscribeButton, { postStatus } from '../fetch/postStatus';
+import postStatus from '../fetch/postStatus';
 
 let url;
 let cardList;
@@ -65,7 +65,7 @@ const errorHandler = (error) => {
   alert(error);
 };
 
-const modalOnClick = ({ target, path }) => {
+const cardListOnClick = ({ target, path }) => {
   if (target.tagName === 'BUTTON' || target.classList.contains('cards')) return;
   const card = path.find((cardArticle) => cardArticle.id);
   fetchCard(card.id)
@@ -90,8 +90,7 @@ const modalContainerOnClick = ({ target, path }) => {
 
 const subscribe = () => {
   closeButton.addEventListener('click', closeButtonOnClick);
-  cardList.addEventListener('click', modalOnClick);
-  subscribeButton();
+  cardList.addEventListener('click', cardListOnClick);
   modalCardContainer.addEventListener('click', modalContainerOnClick);
 };
 

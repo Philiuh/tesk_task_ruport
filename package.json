@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "choices.js": "git+https://github.com/Philiuh/Choices.git",
-    "load-grunt-config": "^4.0.1",
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
@@ -53,6 +52,7 @@
     "imagemin-pngcrush": "7.0.0",
     "imagemin-pngquant": "9.0.1",
     "jest": "^26.6.3",
+    "load-grunt-config": "^4.0.1",
     "node-sass": "^5.0.0",
     "prettier": "^2.2.1",
     "stylelint": "^13.12.0",

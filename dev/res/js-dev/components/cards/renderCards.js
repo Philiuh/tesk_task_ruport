@@ -1,3 +1,5 @@
+import postStatus from '../fetch/postStatus';
+
 let cards;
 let url;
 
@@ -14,7 +16,7 @@ const createCards = (
   { id, in_reserve, name, image_url, type, gender }
 ) => {
   return `${articles}
-    <article id='${id}'
+    <article id='${id}' data-status='входящие'
     class="card ${in_reserve ? 'card--reserved' : ''}" >
       <img class="card__img" src="${image_url}" />
       <h2 class="card__name">${name}</h2>
@@ -37,9 +39,25 @@ const renderCards = (cardsData) => {
 };
 
 const fetchCards = () => {
-  return fetch(url)
+  return fetch(`${url}get-bears`)
     .then((response) => response.json())
     .then((json) => json.results.data);
+};
+
+const buttonOnClick = ({ target, path }) => {
+  const card = path.find((cardArticle) => cardArticle.id);
+  if (
+    target.tagName === 'BUTTON' &&
+    target.classList.contains('card__button--reject')
+  ) {
+    postStatus(card.id, 'reject-bear');
+  } else if (target.tagName === 'BUTTON') {
+    postStatus(card.id, 'resolve-bear');
+  }
+};
+
+const subscribe = () => {
+  cards.addEventListener('click', buttonOnClick);
 };
 
 export default () => {
@@ -47,5 +65,6 @@ export default () => {
     return Promise.reject();
   }
   findElements();
+  subscribe();
   return fetchCards().then(renderCards);
 };

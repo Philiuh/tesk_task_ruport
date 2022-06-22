@@ -15,6 +15,7 @@
   left: calc(50% - #{$modalWidth / 2});
   display: block;
   max-width: $modalWidth;
+  height: auto;
   max-height: fit-content;
   overflow: hidden;
   border-radius: 6px;
@@ -23,6 +24,10 @@
   @include tx-media(phone) {
     left: calc(50% - #{$modalWidthMobile / 2});
     max-width: $modalWidthMobile;
+  }
+
+  &--processed {
+    @extend %modal--processed;
   }
 }
 
@@ -56,11 +61,15 @@ $closeButtonOffsetYMobile: 49px;
 
 .modal__description {
   @include tx-font-size(14px, 10px);
-  margin: 16px 0 0 0;
+  margin: 16px 0 36px;
   color: $gray-700;
 
   %card--reserved & {
     color: $gray-100;
+  }
+
+  %modal--processed & {
+    margin-bottom: 66px;
   }
 }
 
@@ -70,8 +79,12 @@ $closeButtonOffsetYMobile: 49px;
   align-items: center;
   justify-content: space-between;
   max-width: none;
-  margin: 36px 0 30px;
+  margin: 0 0 30px;
   padding: 0;
+
+  %modal--processed & {
+    display: none;
+  }
 }
 
 .modal__button {

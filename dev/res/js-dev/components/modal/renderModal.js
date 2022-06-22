@@ -1,3 +1,5 @@
+import postStatus from '../fetch/postStatus';
+
 let url;
 let cardList;
 let modalCardContainer;
@@ -21,9 +23,17 @@ const fetchCard = (id) => {
 };
 
 /* eslint-disable camelcase */
-const createModal = ({ in_reserve, image_url, name, type, gender, text }) => {
+const createModal = (
+  { id, in_reserve, image_url, name, type, gender, text },
+  { dataset }
+) => {
   return `
-  <div class="card modal ${in_reserve ? 'card--reserved' : ''}">
+  <div id=${id} class="
+    card
+    modal
+    ${in_reserve ? 'card--reserved' : ''}
+    ${dataset.status === 'входящие' ? '' : 'modal--processed'}
+  ">
     <img class="card__img" src="${image_url}" />
     <div class="modal__inner">
       <h2 class="card__name">${name}</h2>
@@ -44,8 +54,8 @@ const closeButtonOnClick = () => {
   modalCardContainer.style.visibility = 'hidden';
 };
 
-const renderModal = (cardData) => {
-  const rawModalCard = createModal(cardData);
+const renderModal = (cardData, card) => {
+  const rawModalCard = createModal(cardData, card);
   modalCard.insertAdjacentHTML('afterbegin', rawModalCard);
   modalCardContainer.style.visibility = 'visible';
 };
@@ -55,15 +65,33 @@ const errorHandler = (error) => {
   alert(error);
 };
 
-const modalOnClick = ({ target, path }) => {
+const cardListOnClick = ({ target, path }) => {
   if (target.tagName === 'BUTTON' || target.classList.contains('cards')) return;
   const card = path.find((cardArticle) => cardArticle.id);
-  fetchCard(card.id).then(renderModal).catch(errorHandler);
+  fetchCard(card.id)
+    .then((response) => renderModal(response, card))
+    .catch(errorHandler);
+};
+
+const modalContainerOnClick = ({ target, path }) => {
+  const card = path.find((cardArticle) => cardArticle.id);
+  if (
+    target.tagName === 'BUTTON' &&
+    target.classList.contains('card__button--reject')
+  ) {
+    postStatus(card.id, 'reject-bear');
+  } else if (
+    target.tagName === 'BUTTON' &&
+    target.className !== 'modal__close-button'
+  ) {
+    postStatus(card.id, 'resolve-bear');
+  }
 };
 
 const subscribe = () => {
   closeButton.addEventListener('click', closeButtonOnClick);
-  cardList.addEventListener('click', modalOnClick);
+  cardList.addEventListener('click', cardListOnClick);
+  modalCardContainer.addEventListener('click', modalContainerOnClick);
 };
 
 export default () => {

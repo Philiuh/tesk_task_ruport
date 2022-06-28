@@ -3,21 +3,36 @@ import Choices from 'choices.js';
 let element;
 let select;
 let cards;
-let options;
 let checkbox;
 let pageTitle;
-const selectOptions = [];
+
+const optionsStatus = {
+  incoming: {
+    label: 'Входящие медведи',
+    key: 'входящие',
+  },
+  accepted: {
+    label: 'Принятые медведи',
+    key: 'принятые',
+  },
+  rejected: {
+    label: 'Отклонённые медведи',
+    key: 'отклонённые',
+  },
+};
+
+const selectedOption = {
+  [optionsStatus.accepted.label]: optionsStatus.accepted,
+  [optionsStatus.incoming.label]: optionsStatus.incoming,
+  [optionsStatus.rejected.label]: optionsStatus.rejected,
+};
 
 const shouldRun = () => document.querySelector('.menu__select');
 
 const findElements = () => {
   cards = document.querySelectorAll('.card');
   checkbox = document.querySelector('.menu__checkbox');
-  options = document.querySelectorAll('.menu__option');
   pageTitle = document.querySelector('.menu__text');
-  for (let i = 0; i < options.length; i += 1) {
-    selectOptions.push(options[i].value);
-  }
   element = document.querySelector('.menu__select');
   select = new Choices(element, {
     searchEnabled: false,
@@ -27,11 +42,14 @@ const findElements = () => {
   });
 };
 
-const removeSelectedOption = (selectedOption) => {
+function removeSelectedOption(optionStatus) {
   select.removeActiveItems();
-  const filteredArray = selectOptions.filter(
-    (option) => option !== selectedOption
-  );
+
+  const filteredArray = Object.values(optionsStatus)
+    .map((option) => Object.values(option))
+    .flat()
+    .filter((option) => option.includes('медведи') && option !== optionStatus);
+
   select.setChoices(
     [
       { value: filteredArray[0], label: filteredArray[0] },
@@ -41,7 +59,7 @@ const removeSelectedOption = (selectedOption) => {
     'label',
     true
   );
-};
+}
 
 const changePageTitle = (selectStatus) => {
   if (selectStatus !== 'входящие') {
@@ -72,33 +90,26 @@ const changeCardsVisibility = (cardStatus) => {
   changePageTitle(cardStatus);
 };
 
+function onChoiceChange(option) {
+  removeSelectedOption(option.label);
+  changeCardsVisibility(option.key);
+}
+
 const chooseSelectElement = (event) => {
-  switch (event.detail.choice.value) {
-    // incoming
-    case selectOptions[0]:
-      removeSelectedOption(selectOptions[0]);
-      changeCardsVisibility('входящие');
-      break;
-    // taken
-    case selectOptions[1]:
-      removeSelectedOption(selectOptions[1]);
-      changeCardsVisibility('принятые');
-      break;
-    // dismissed
-    case selectOptions[2]:
-      removeSelectedOption(selectOptions[2]);
-      changeCardsVisibility('отклонённые');
-      break;
-    default:
-      break;
-  }
+  onChoiceChange(selectedOption[event.detail.choice.value]);
 };
 
 const subscribeSelect = () => {
   select.setChoices(
     [
-      { value: selectOptions[1], label: selectOptions[1] },
-      { value: selectOptions[2], label: selectOptions[2] },
+      {
+        value: optionsStatus.accepted.label,
+        label: optionsStatus.accepted.label,
+      },
+      {
+        value: optionsStatus.rejected.label,
+        label: optionsStatus.rejected.label,
+      },
     ],
     'value',
     'label',

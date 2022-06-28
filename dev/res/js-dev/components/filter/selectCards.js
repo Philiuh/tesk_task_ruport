@@ -45,15 +45,15 @@ const findElements = () => {
 function removeSelectedOption(optionStatus) {
   select.removeActiveItems();
 
-  const filteredArray = Object.values(optionsStatus)
+  const restOptions = Object.values(optionsStatus)
     .map((option) => Object.values(option))
     .flat()
     .filter((option) => option.includes('медведи') && option !== optionStatus);
 
   select.setChoices(
     [
-      { value: filteredArray[0], label: filteredArray[0] },
-      { value: filteredArray[1], label: filteredArray[1] },
+      { value: restOptions[0], label: restOptions[0] },
+      { value: restOptions[1], label: restOptions[1] },
     ],
     'value',
     'label',

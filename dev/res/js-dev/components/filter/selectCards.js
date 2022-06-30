@@ -1,6 +1,6 @@
 import Choices from 'choices.js';
 
-let element;
+let selectContainer;
 let select;
 let cards;
 let checkbox;
@@ -8,23 +8,23 @@ let pageTitle;
 
 const optionsStatus = {
   incoming: {
+    value: 'входящие',
     label: 'Входящие медведи',
-    key: 'входящие',
   },
   accepted: {
+    value: 'принятые',
     label: 'Принятые медведи',
-    key: 'принятые',
   },
   rejected: {
+    value: 'отклонённые',
     label: 'Отклонённые медведи',
-    key: 'отклонённые',
   },
 };
 
 const selectedOption = {
-  [optionsStatus.accepted.label]: optionsStatus.accepted,
-  [optionsStatus.incoming.label]: optionsStatus.incoming,
-  [optionsStatus.rejected.label]: optionsStatus.rejected,
+  [optionsStatus.incoming.value]: optionsStatus.incoming,
+  [optionsStatus.accepted.value]: optionsStatus.accepted,
+  [optionsStatus.rejected.value]: optionsStatus.rejected,
 };
 
 const shouldRun = () => document.querySelector('.menu__select');
@@ -33,8 +33,8 @@ const findElements = () => {
   cards = document.querySelectorAll('.card');
   checkbox = document.querySelector('.menu__checkbox');
   pageTitle = document.querySelector('.menu__text');
-  element = document.querySelector('.menu__select');
-  select = new Choices(element, {
+  selectContainer = document.querySelector('.menu__select');
+  select = new Choices(selectContainer, {
     searchEnabled: false,
     itemSelectText: '',
     allowHTML: true,
@@ -42,24 +42,16 @@ const findElements = () => {
   });
 };
 
-function removeSelectedOption(optionStatus) {
-  select.removeActiveItems();
-
-  const restOptions = Object.values(optionsStatus)
-    .map((option) => Object.values(option))
+const filterChoices = (value) => {
+  return Object.entries(optionsStatus)
     .flat()
-    .filter((option) => option.includes('медведи') && option !== optionStatus);
+    .filter((option) => option.value && option.value !== value);
+};
 
-  select.setChoices(
-    [
-      { value: restOptions[0], label: restOptions[0] },
-      { value: restOptions[1], label: restOptions[1] },
-    ],
-    'value',
-    'label',
-    true
-  );
-}
+const removeSelectedOption = (optionStatus) => {
+  select.removeActiveItems();
+  select.setChoices(filterChoices(optionStatus), 'value', 'label', true);
+};
 
 const changePageTitle = (selectStatus) => {
   if (selectStatus !== 'входящие') {
@@ -90,32 +82,15 @@ const changeCardsVisibility = (cardStatus) => {
   changePageTitle(cardStatus);
 };
 
-function onChoiceChange(option) {
-  removeSelectedOption(option.label);
-  changeCardsVisibility(option.key);
-}
-
-const chooseSelectElement = (event) => {
-  onChoiceChange(selectedOption[event.detail.choice.value]);
+const onChoiceChange = (event) => {
+  const option = selectedOption[event.detail.choice.value].value;
+  removeSelectedOption(option);
+  changeCardsVisibility(option);
 };
 
 const subscribeSelect = () => {
-  select.setChoices(
-    [
-      {
-        value: optionsStatus.accepted.label,
-        label: optionsStatus.accepted.label,
-      },
-      {
-        value: optionsStatus.rejected.label,
-        label: optionsStatus.rejected.label,
-      },
-    ],
-    'value',
-    'label',
-    true
-  );
-  element.addEventListener('choice', chooseSelectElement);
+  select.setChoices(filterChoices('входящие'), 'value', 'label', true);
+  selectContainer.addEventListener('choice', onChoiceChange);
 };
 
 export default () => {

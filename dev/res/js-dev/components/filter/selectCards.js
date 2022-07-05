@@ -6,6 +6,7 @@ let cards;
 let checkbox;
 let pageTitle;
 
+// русские символы
 const optionsStatus = {
   incoming: {
     value: 'входящие',
@@ -19,12 +20,6 @@ const optionsStatus = {
     value: 'отклонённые',
     label: 'Отклонённые медведи',
   },
-};
-
-const selectedOption = {
-  [optionsStatus.incoming.value]: optionsStatus.incoming,
-  [optionsStatus.accepted.value]: optionsStatus.accepted,
-  [optionsStatus.rejected.value]: optionsStatus.rejected,
 };
 
 const shouldRun = () => document.querySelector('.menu__select');
@@ -42,10 +37,10 @@ const findElements = () => {
   });
 };
 
-const filterChoices = (value) => {
-  return Object.entries(optionsStatus)
-    .flat()
-    .filter((option) => option.value && option.value !== value);
+const filterChoices = (...values) => {
+  return Object.values(optionsStatus).filter(
+    (option) => option.value && !values.includes(option.value)
+  );
 };
 
 const removeSelectedOption = (optionStatus) => {
@@ -83,7 +78,7 @@ const changeCardsVisibility = (cardStatus) => {
 };
 
 const onChoiceChange = (event) => {
-  const option = selectedOption[event.detail.choice.value].value;
+  const option = event.detail.choice.value;
   removeSelectedOption(option);
   changeCardsVisibility(option);
 };
